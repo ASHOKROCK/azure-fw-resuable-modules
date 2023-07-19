@@ -20,7 +20,7 @@ resource "azurerm_subnet" "subnet" {
   address_prefixes =  each.value["address_prefixes"]
 }
 
-
+# test
 
 # resource "azurerm_public_ip" "bastion_pip" {
 #   name = "${var.bastionhost_name}pip"
