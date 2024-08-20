@@ -71,20 +71,20 @@ variable "vm" {
     sku = string
     version = string
   }))
-  # default = {
-  #   "vm1" = {
-  #     name = "vm1"
-  #     size = "Standard_DS1_v2"
-  #     storage_account_type = "StandardSSD_LRS"
-  #     admin_username = "demousr"
-  #     admin_password = "Password@123"
-  #     # OS specs
-  #     publisher = "MicrosoftWindowsServer"
-  #     offer     = "WindowsServer"
-  #     sku       = "2022-Datacenter"
-  #     version   = "latest"
-  #   } 
-  # }
+   default = {
+     "vm1" = {
+       name = "vm1"
+       size = "Standard_DS1_v2"
+       storage_account_type = "StandardSSD_LRS"
+       admin_username = "demousr"
+       admin_password = "Password@123"
+       # OS specs
+       publisher = "MicrosoftWindowsServer"
+       offer     = "WindowsServer"
+       sku       = "2022-Datacenter"
+       version   = "latest"
+     } 
+   }
 }
 
 variable "firewall_nat_rule" {
@@ -104,25 +104,25 @@ variable "firewall_nat_rule" {
       protocols             = list(string)
     }))
   }))
-  # default = [
-  #   {
-  #     name     = "NatRuleCollection1"
-  #     priority = 100
-  #     action   = "Dnat"
-  #     rules = [
-  #       {
-  #         name                  = "RedirectWeb"
-  #         source_addresses      = ["*"]
-  #         destination_ports     = ["80"]
-  #         destination_addresses = ["20.219.250.43"] # Firewall public IP Address
-  #         translated_port       = 80
-  #         translated_address    = "10.10.1.4"
-  #         protocols             = ["TCP"]
-  #         source_ip_groups      = null
-  #       }
-  #     ]
-  #   }
-  # ]
+   default = [
+     {
+       name     = "NatRuleCollection1"
+       priority = 100
+       action   = "Dnat"
+       rules = [
+         {
+           name                  = "RedirectWeb"
+           source_addresses      = ["*"]
+           destination_ports     = ["80"]
+           destination_addresses = ["20.219.250.43"] # Firewall public IP Address
+           translated_port       = 80
+           translated_address    = "10.10.1.4"
+           protocols             = ["TCP"]
+           source_ip_groups      = null
+         }
+       ]
+     }
+   ]
 }
 
 variable "firewall_app_rule" {
@@ -155,4 +155,18 @@ variable "nsg_rules" {
     source_address_prefix      = string
     destination_address_prefix = string
   }))
+default = [
+   {
+  name       =   "vnetnsg"
+  priority   =    100
+  direction  =    "Inbound"
+  access     =  "Allow"
+  protocol   = "Tcp"
+  source_port_range    = "*"
+  destination_port_range     = "*"
+  source_address_prefix      = "*"
+  destination_address_prefix = "*"
+  }
+]
+  
 }
